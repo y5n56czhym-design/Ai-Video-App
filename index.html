@@ -257,7 +257,7 @@ small{font-family:var(--mo);font-size:10px;color:var(--mu);letter-spacing:1px}
 .stage.active .snum{background:linear-gradient(135deg,var(--c),var(--v));color:#000;box-shadow:0 0 14px rgba(0,245,255,.4)}
 .stage.done .snum{background:var(--gr);color:#000}
 .stage.fail .snum{background:var(--r);color:#fff}
-.sname{font-weight:700;font-size:14px;color:#fff;margin-bottom:2px}.sdesc{font-size:11px;color:var(--mu);font-family:var(--mo)}
+.stage .sname{font-weight:700;font-size:14px;color:#fff;margin-bottom:2px}.sdesc{font-size:11px;color:var(--mu);font-family:var(--mo)}
 .sstat{font-family:var(--px);font-size:7px;padding:3px 7px;border-radius:3px;letter-spacing:1px;white-space:nowrap}
 .ss-idle{background:var(--mu2);color:var(--mu)}.ss-act{background:rgba(0,245,255,.1);color:var(--c);border:1px solid rgba(0,245,255,.2);animation:pg .8s ease-in-out infinite}
 .ss-done{background:rgba(0,255,136,.1);color:var(--gr);border:1px solid rgba(0,255,136,.2)}.ss-fail{background:rgba(255,34,68,.1);color:var(--r);border:1px solid rgba(255,34,68,.2)}
@@ -481,10 +481,10 @@ small{font-family:var(--mo);font-size:10px;color:var(--mu);letter-spacing:1px}
 <div id="game">
   <div id="hud">
     <div class="hudblk"><div class="hl">NEXUS//OS</div><div class="hs">v5.0 · Creator RPG</div></div>
-    <div class="hudblk"><div class="hs">LEVEL</div><div class="hv c" id="hudLv">01</div></div>
-    <div class="hudblk"><div class="hs">XP</div><div class="hv g" id="hudXP">0</div></div>
-    <div class="hudblk"><div class="hs">VIDEOS</div><div class="hv gr" id="hudV">0</div></div>
-    <div class="hudblk"><div class="hs">PUBLISHED</div><div class="hv m" id="hudP">0</div></div>
+    <div class="hudblk hud-stats"><div class="hs">LEVEL</div><div class="hv c" id="hudLv">01</div></div>
+    <div class="hudblk hud-stats"><div class="hs">XP</div><div class="hv g" id="hudXP">0</div></div>
+    <div class="hudblk hud-stats"><div class="hs">VIDEOS</div><div class="hv gr" id="hudV">0</div></div>
+    <div class="hudblk hud-stats"><div class="hs">PUBLISHED</div><div class="hv m" id="hudP">0</div></div>
     <div id="xpbar">
       <div class="xpl" id="lvbadge">LVL 01</div>
       <div id="xptrack"><div id="xpfill"></div></div>
@@ -1039,7 +1039,7 @@ const CHARS=[
   {id:'veteran',name:'THE VETERAN',type:'soldier',pose:'stand',expr:'proud',color:'#00ff88',bg:'#001a08'},
 ];
 
-let galFilt='all',galAFs={};
+let galFilt='all',galAFs={},scpAF=null;
 function initGallery(){renderGallery();}
 function renderGallery(){
   Object.values(galAFs).forEach(af=>cancelAnimationFrame(af));galAFs={};
@@ -1065,7 +1065,7 @@ function pickChar(char){
   document.getElementById('selbar').style.display='flex';
   document.getElementById('scpN').textContent=char.name;
   document.getElementById('scpD').textContent=char.type.toUpperCase()+' · '+char.pose.toUpperCase()+' · '+char.expr.toUpperCase();
-  const cv=document.getElementById('scpCv');let af;const run=ts=>{drawChar(cv.getContext('2d'),90,120,char,true,ts);af=requestAnimationFrame(run);};af=requestAnimationFrame(run);
+  const cv=document.getElementById('scpCv');if(scpAF)cancelAnimationFrame(scpAF);let af;const run=ts=>{drawChar(cv.getContext('2d'),90,120,char,true,ts);af=scpAF=requestAnimationFrame(run);};af=scpAF=requestAnimationFrame(run);
   document.getElementById('qcC').textContent=char.name.split(' ').slice(1).join(' ')||char.name;
   renderGallery();addXP(50,'CHARACTER SELECTED');
   if(!S.earned.has('first_char'))unlock('first_char','CHARACTER UNLOCKED','Selected your first character');
@@ -1397,7 +1397,7 @@ function stopPlay(){
   if(pAF){cancelAnimationFrame(pAF);pAF=null;}
 }
 function seekV(e){
-  const v=S.pvVids[S.pvActive];const rect=e.currentTarget.getBoundingClientRect();
+  const v=S.pvVids[S.pvActive];if(!v)return;const rect=e.currentTarget.getBoundingClientRect();
   const pct=(e.clientX-rect.left)/rect.width;S.playProg=pct*v.duration;
   document.getElementById('ptlf').style.width=(pct*100)+'%';document.getElementById('ppf').style.width=(pct*100)+'%';
   const sec=Math.floor(S.playProg);document.getElementById('ptm').textContent=`0:${sec<10?'0':''}${sec}`;
@@ -1640,7 +1640,7 @@ function initDeploy(){
     }
   },600);
 }
-function closeTunnel(){const t=document.getElementById('tunnel');t.classList.remove('open');if(tAF){cancelAnimationFrame(tAF);tAF=null;}['yt','ys','tt','ig'].forEach(p=>{const c=document.getElementById(`td-${p}`);c.classList.remove('live');});}
+function closeTunnel(){const t=document.getElementById('tunnel');t.classList.remove('open');if(tAF){cancelAnimationFrame(tAF);tAF=null;}['yt','ys','tt','ig'].forEach(p=>{const c=document.getElementById(`td-${p}`);c.classList.remove('live');c.style.cssText='';});document.getElementById('tbar').style.width='0%';document.getElementById('tstat').textContent='Initializing...';document.getElementById('tclose').style.display='none';}
 
 // ══════════════════════════════════════════════════════════
 // BOOT

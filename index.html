@@ -1110,85 +1110,151 @@ const TOPICS=[
   {icon:'💪',name:'NRA & Lobbying'},{icon:'👻',name:'Ghost Guns'},{icon:'🔬',name:'Gun Tech'},
   {icon:'🚩',name:'Red Flag Laws'},{icon:'🎬',name:'Media & Guns'},{icon:'🏆',name:'Iconic Firearms'},{icon:'🕵️',name:'Black Market'},
 ];
-const CAM=['EXTREME CLOSE-UP','DUTCH ANGLE','TRACKING SHOT','OVERHEAD DRONE','DOLLY ZOOM','HANDHELD'];
-const LIT=['NEON NOIR','GOLDEN HOUR','CHIAROSCURO','COLD STEEL BLUE','WARM AMBER','HIGH CONTRAST B&W'];
-const TONE_S=['DOCUMENTARY GRAVITAS','CINEMATIC THRILLER','HISTORICAL EPIC','INVESTIGATIVE','DRAMATIC REVEAL','TENSE SUSPENSE'];
-const HOOKS=['You\'ve been lied to about','The truth about','What nobody tells you about','The secret history of','How this changed everything about','Before 1968, Americans could'];
-const POOL={
-  'Gun Laws History':[
-    {t:'NFA 1934 — America\'s First Real Gun Law',body:'The gangster era machine gun violence forced Congress to act. The 1934 National Firearms Act changed everything.',cam:0,lit:3,tone:0},
-    {t:'The Brady Bill Changed How Americans Buy Guns',body:'Before 1993: walk in, walk out. The Brady Handgun Violence Prevention Act introduced background checks.',cam:2,lit:1,tone:2},
-    {t:'1994 Assault Weapons Ban — The Full Story',body:'Congressional battle over what counted as assault weapon. 10-year ban. What happened when it expired.',cam:3,lit:4,tone:1},
-    {t:'Why You Can\'t Sue a Gun Manufacturer',body:'The 2005 PLCAA shields gun makers from lawsuits. How it passed and why it remains controversial.',cam:1,lit:2,tone:3},
-  ],
-  '2nd Amendment':[
-    {t:'What the Founders ACTUALLY Meant by Militia',body:'1791 constitutional intent vs modern interpretation. The Founders own words reveal a complex picture.',cam:0,lit:5,tone:0},
-    {t:'DC v. Heller — The Case That Redefined Everything',body:'2008 Supreme Court ruling established individual gun rights. The dissenters argued it rewrote history.',cam:4,lit:2,tone:1},
-  ],
-  'Wild West Era':[
-    {t:'Tombstone Had STRICTER Gun Laws Than Today',body:'Cowboys surrendered firearms at city limits. Dodge City enforced it with deadly seriousness.',cam:5,lit:1,tone:4},
-    {t:'Wyatt Earp — The Lawman Who Banned Open Carry',body:'The most famous gunfight in history started over a gun ordinance. The real story is more complex.',cam:2,lit:4,tone:3},
-  ],
-  'Manufacturing':[
-    {t:'Eli Whitney\'s Assembly Line Changed Guns Forever',body:'1798: interchangeable parts revolutionized production. From custom-made to mass-manufactured in one decade.',cam:3,lit:3,tone:0},
-    {t:'Sears Catalog Sold Rifles By Mail — No Questions Asked',body:'1890s to 1968: order a rifle, have it delivered. Lee Harvey Oswald exploited this. Congress ended it.',cam:0,lit:5,tone:2},
-    {t:'Samuel Colt — The Man Who Armed America',body:'From teenage inventor to supplying the Union Army with hundreds of thousands of revolvers.',cam:1,lit:0,tone:1},
-  ],
-  'Global Spread':[
-    {t:'How the AK-47 Conquered the World',body:'1947 design. Soviet gift to allies. Now in 100+ countries. 75 million exist. The most distributed weapon in history.',cam:4,lit:2,tone:3},
-  ],
-  'Law Enforcement':[
-    {t:'The Day Police Abandoned the Revolver',body:'1986 Miami Shootout: FBI agents outgunned. Led directly to adoption of semi-automatic pistols nationwide.',cam:2,lit:0,tone:4},
-    {t:'Why Every Cop in America Switched to Glocks',body:'6 rounds vs 17. Lighter, more reliable, cheaper. The Austrian polymer pistol won over American law enforcement.',cam:1,lit:3,tone:1},
-  ],
-  'State Laws':[
-    {t:'Texas vs California — Same Country, Different Universe',body:'No permit carry vs 10-day waiting period, assault weapon ban, handgun roster. The widest gun law gap in America.',cam:3,lit:1,tone:2},
-    {t:'Constitutional Carry Spread to 27 States',body:'2010 to 2024: permitless carry went from 2 states to 27. The quiet revolution in American gun law.',cam:4,lit:4,tone:0},
-  ],
-  'Military Guns':[
-    {t:'AR-15 — Born Military, Sold Civilian',body:'ArmaLite 1956 military design. Colt civilian version 1963. Today America\'s best-selling rifle.',cam:0,lit:2,tone:3},
-    {t:'The Gatling Gun — World\'s First Machine Gun',body:'1861: Richard Gatling\'s rotating barrel fired 200 rounds per minute. Changed the calculus of warfare forever.',cam:5,lit:5,tone:4},
-  ],
-  'NRA & Lobbying':[{t:'How the NRA Became America\'s Most Powerful Lobby',body:'1871: marksmanship club. 1977 Cincinnati Revolt: hardliners seize control. The transformation into a political juggernaut.',cam:2,lit:0,tone:3}],
-  'Ghost Guns':[
-    {t:'Ghost Guns — Untraceable and Legal',body:'No serial number. No background check. Assembled at home. The 2022 ATF crackdown and what changed.',cam:1,lit:0,tone:4},
-    {t:'3D Printed Guns Changed Everything',body:'2013: Cody Wilson prints the Liberator. 1 shot. Worldwide download. Government reaction.',cam:4,lit:0,tone:4},
-  ],
-  'Iconic Firearms':[
-    {t:'Winchester 1873 — The Gun That Won the West',body:'15 rounds without reloading. Settlers, outlaws, sheriffs — everyone carried one. 700,000 sold.',cam:5,lit:1,tone:2},
-    {t:'The Colt Peacemaker — 150 Years of American Legend',body:'Army adopted it 1873. Hollywood immortalized it. Still manufactured today.',cam:0,lit:4,tone:1},
-  ],
-  'Red Flag Laws':[{t:'Red Flag Laws — What Are They and Do They Work?',body:'Extreme Risk Protection Orders. 20+ states. Courts remove guns from people deemed dangerous.',cam:3,lit:3,tone:0}],
-  'Media & Guns':[{t:'How Hollywood Created America\'s Gun Mythology',body:'From silent westerns to modern action films: how cinema constructed America\'s relationship with firearms.',cam:1,lit:0,tone:1}],
-  'Gun Tech':[{t:'Smart Guns — The Technology the Industry Refuses to Adopt',body:'Fingerprint recognition. RFID. Child-lock tech. It all exists. So why won\'t the gun industry use it?',cam:2,lit:2,tone:3}],
-  'Black Market':[{t:'Straw Purchases — The Primary Pipeline for Illegal Guns',body:'Someone with a clean record buys for someone who can\'t. Federal crime. Happens daily.',cam:5,lit:0,tone:4}],
-  'Retail History':[{t:'America\'s First Gun Stores — No ID, No Questions',body:'Mid-1800s hardware stores. Then Sears catalog. The evolution of how Americans bought firearms.',cam:3,lit:1,tone:0}],
-};
-const FALLBACK=[
-  {t:'250 Years of American Guns — Full Timeline',body:'1776 musket to 2024 AR-15. Technology, law, culture, conflict. The complete arc of American firearms history.',cam:4,lit:5,tone:2},
-  {t:'120 Guns Per 100 Americans — How?',body:'More guns than people. No other nation comes close. The history, culture, economics, and law that created this reality.',cam:0,lit:3,tone:0},
-  {t:'Gun Show Loophole — Real or Myth?',body:'Private sellers. No background check. Varies by state. The debate that has raged for 30 years.',cam:2,lit:2,tone:1},
-  {t:'How Prohibition Created America\'s Gun Laws',body:'1920s organized crime. Tommy guns. Public panic. The direct line from Al Capone to the 1934 National Firearms Act.',cam:5,lit:0,tone:4},
-  {t:'Mail Order Guns — Ended By an Assassination',body:'Until 1968: order any firearm from the Sears catalog. Lee Harvey Oswald changed all of that.',cam:1,lit:0,tone:3},
+<script>
+/* =========================
+   CORE DATA
+========================= */
+
+const topics = [
+  "Gun Laws History",
+  "2nd Amendment",
+  "Wild West Era",
+  "Manufacturing",
+  "Global Spread",
+  "Law Enforcement",
+  "State Laws",
+  "Military Guns",
+  "Retail History",
+  "NRA & Lobbying",
+  "Ghost Guns",
+  "Gun Tech",
+  "Red Flag Laws",
+  "Media & Guns",
+  "Iconic Firearms",
+  "Black Market"
 ];
 
-function initTopics(){
-  const g=document.getElementById('topicGrid');g.innerHTML='';
-  TOPICS.forEach((t,i)=>{
-    const d=document.createElement('div');d.className='tbtn';d.onclick=()=>togTopic(i,d);
-    d.innerHTML=`<span class="ticon">${t.icon}</span><div style="flex:1;font-weight:700;font-size:13px">${t.name}</div><div class="tchk">✓</div>`;
-    g.appendChild(d);
-  });
-}
-function togTopic(i,el){if(S.topics.has(i)){S.topics.delete(i);el.classList.remove('sel');}else{S.topics.add(i);el.classList.add('sel');}updGS();}
-function updGS(){
-  const n=S.topics.size;
-  document.getElementById('gbsub').textContent=S.promptCount+' CINEMATIC PROMPTS';
-  document.getElementById('gstat').innerHTML=n===0?'// SELECT TOPICS → CALIBRATE → HIT GENERATE <span>↑</span>':`// <span>${n} NODES ACTIVE</span> · ${S.promptCount} PROMPTS QUEUED`;
-}
-function setAmt(n,el){S.promptCount=n;document.querySelectorAll('.apill').forEach(p=>p.classList.remove('act'));el.classList.add('act');document.getElementById('custA').value='';updGS();}
-function setCust(v){if(v&&parseInt(v)>0){S.promptCount=parseInt(v);document.querySelectorAll('.apill').forEach(p=>p.classList.remove('act'));updGS();}}
+const formats = [
+  { name: "YT SHORTS", aspect: "9:16", duration: "60s" },
+  { name: "TIKTOK", aspect: "9:16", duration: "60s" },
+  { name: "REELS", aspect: "9:16", duration: "90s" },
+  { name: "LONG-FORM", aspect: "16:9", duration: "5–15 min" },
+  { name: "DOCUMENTARY", aspect: "16:9", duration: "20+ min" },
+  { name: "SQUARE", aspect: "1:1", duration: "30s" }
+];
 
+const angles = [
+  "little-known fact",
+  "controversial case",
+  "history breakdown",
+  "myth vs reality",
+  "timeline explanation",
+  "legal breakdown",
+  "state comparison",
+  "surprising consequence",
+  "hidden background",
+  "expert perspective"
+];
+
+const hooks = [
+  "Most people don’t realize...",
+  "This changes everything...",
+  "Here’s what nobody tells you...",
+  "The truth is shocking...",
+  "Almost everyone gets this wrong...",
+  "This is bigger than you think..."
+];
+
+const structures = [
+  "Hook → Context → Breakdown → Impact → Conclusion",
+  "Problem → History → Example → Analysis → Result",
+  "Myth → Truth → Evidence → Explanation → Takeaway",
+  "Timeline → Key Events → Turning Point → Outcome",
+  "Question → Answer → Deep Dive → Real-world example"
+];
+
+const used = new Set();
+
+/* =========================
+   HELPERS
+========================= */
+
+function pick(arr) {
+  return arr[Math.floor(Math.random() * arr.length)];
+}
+
+/* =========================
+   GENERATOR ENGINE
+========================= */
+
+function generateIdea() {
+  const topic = pick(topics);
+  const format = pick(formats);
+  const angle = pick(angles);
+  const hook = pick(hooks);
+  const structure = pick(structures);
+
+  const key = `${topic}-${format.name}-${angle}`;
+
+  if (used.has(key)) {
+    return generateIdea(); // retry for uniqueness
+  }
+
+  used.add(key);
+
+  return {
+    topic,
+    format: format.name,
+    prompt: `
+TITLE IDEA:
+${topic} — ${angle}
+
+FORMAT:
+${format.name} (${format.aspect}, ${format.duration})
+
+HOOK:
+${hook}
+
+STRUCTURE:
+${structure}
+
+FULL SCRIPT IDEA:
+Create a high-retention video about ${topic}.
+Focus on a ${angle}.
+Start with: "${hook}"
+Follow structure: ${structure}
+Keep pacing fast, visual, and engaging.
+`
+  };
+}
+
+/* =========================
+   PREVIEW SYSTEM
+========================= */
+
+function generateBatch(count = 20) {
+  const container = document.getElementById("preview");
+  container.innerHTML = "";
+
+  for (let i = 0; i < count; i++) {
+    const idea = generateIdea();
+
+    const div = document.createElement("div");
+    div.style.border = "1px solid #ccc";
+    div.style.margin = "10px";
+    div.style.padding = "10px";
+
+    div.innerHTML = `
+      <h3>${idea.topic}</h3>
+      <p><b>Format:</b> ${idea.format}</p>
+      <pre style="white-space:pre-wrap">${idea.prompt}</pre>
+    `;
+
+    container.appendChild(div);
+  }
+}
+</script>
+  
 function genPrompts(){
   if(!S.topics.size){document.getElementById('gstat').innerHTML='// <span style="color:var(--r)">SELECT AT LEAST ONE TOPIC NODE</span>';document.getElementById('gbtn').style.transform='scale(.93)';setTimeout(()=>document.getElementById('gbtn').style.transform='',200);return;}
   document.getElementById('gbtn').style.transform='scale(.97)';document.getElementById('gstat').innerHTML='// <span>GENERATING CINEMATIC PROMPT CARDS...</span>';
